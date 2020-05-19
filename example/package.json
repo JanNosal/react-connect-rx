@@ -5,9 +5,10 @@
   "private": true,
   "dependencies": {
     "react": "link:../node_modules/react",
+    "react-connect-rx": "link:..",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
-    "react-connect-rx": "link:.."
+    "rxjs": "^6.5.5"
   },
   "scripts": {
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",
