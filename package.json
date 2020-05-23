@@ -1,14 +1,13 @@
 {
   "name": "react-connect-rx",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Connect RxJS and React",
-  "author": "JanNosal",
+  "author": "Jan Nosal",
   "license": "MIT",
   "repository": "github:JanNosal/react-connect-rx",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
-  "publishConfig": { "registry": "https://npm.pkg.github.com" },
   "engines": {
     "node": ">=10"
   },

@@ -4,7 +4,7 @@ import {Observable} from "rxjs"
 
 export function updateWithRx<T>(Component: ComponentType<T>) {
 
-  return (observables: Observable<Partial<T>>[]) => (props: T) => {
+  return (observables: Array<Observable<Partial<T>>>) => (props: T) => {
 
     const [properties, setProperties] = useState<T>(props)
 
@@ -26,7 +26,7 @@ export function updateWithRx<T>(Component: ComponentType<T>) {
   }
 }
 
-export function connectObservables<T>(observables: Observable<Partial<T>>[]) {
+export function connectRx<T>(observables: Observable<Partial<T>>[]) {
   return (props: T) => (Component: ComponentType<T>) => () => updateWithRx(Component)(observables)(props)
 }
 
