@@ -1,6 +1,6 @@
 {
   "name": "react-connect-rx",
-  "version": "0.2.2",
+  "version": "0.2.1",
   "description": "Connect RxJS and React",
   "author": "Jan Nosal",
   "license": "MIT",
