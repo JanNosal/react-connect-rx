@@ -30,21 +30,21 @@ type updateWithRx<Props> =
             => (props: Props)
                 => ComponentType<Props>
 ```
-Whole `updateWithRx` function works with Props object which is supposed to have the same type for every argument list. It is quite simple.
-Lets say we have a `Counter` component like this:
+Whole `updateWithRx` function works with `Props` object which is supposed to have the same type for every argument list. It is quite simple.
+Let's say we have a `Counter` component like this:
 
 ```jsx
 const Counter = ({label, count}) =>
-    <>
+    <div>
         <div>{label}</div>
         <div>{count}</div>
-    </>
+    </div>
 ```
 
-The observable we will use to update the `Counter` is supposed to resolve to the object with keys matching the properties of the component we want to connect and (obviously) values with the new values we want to assing to the properties when the observable emits.
+The observable we will use to update the `Counter` is supposed to resolve to the object with keys matching the properties of the component we want to connect and (obviously) new values which we want to assign to the properties when the observable emits.
 
 ```jsx
-import {iterval} from "rxjs"
+import {interval} from "rxjs"
 import {map} from "rxjs/operators"
 
 const count$ = interval(1000).pipe(
@@ -52,15 +52,19 @@ const count$ = interval(1000).pipe(
 )
 ```
 
-Maybe you have noticed the `count$` observable will resolve to object which contains only the `count` property from our `Counter` component. If we only want this property to be updated by the `count$` observable, this is correct. We only return object with keys matching the properties we want to update.
+Maybe you have noticed the `count$` observable will resolve to object which contains only the `count` property from our `Counter` component.
+If we only want this property to be updated by the `count$` observable, this is correct.
+We only return object with keys matching the properties we want to update.
 
-Lets connect our `Counter` component and the `count$` observable.
+Let's connect our `Counter` component and the `count$` observable.
 
 ```jsx
 const ConnectedCounter = updateWithRx(Counter)([count$])
 ```
 
-Finally, we can simly render our `ConnectedCounter` component as usual. We also pass the original properties to the component, which will serve as defaults, untill they are updated with values from `count$`.
+Finally, we can simply render our `ConnectedCounter` component as usual.
+We also pass the original properties to the component, which will serve as defaults,
+until they are updated with values from `count$`.
 
 ```jsx
 const App = () =>
@@ -90,7 +94,9 @@ const App = () =>
     <ConnectedCounter label={"simple counter"} count={0} />
 
 ```
-Note that in the second arguments list, which accepts the array of observables, you can pass any number of observables, which can update the same same subgroup of props a different one, or have an iterception.
+Note that in the second arguments list, which accepts the array of observables,
+you can pass any number of observables, which can update the same subgroup of props a different one,
+or have an interception.
 
 ```jsx
 import React from 'react'
@@ -99,11 +105,11 @@ import {map, mapTo} from 'rxjs/operators'
 import {updateWithRx} from 'react-connect-rx'
 
 const Counter = ({label, count, note}) =>
-    <>
+    <div>
         <h4>{label}</h4>
         <div>{count}</div>
         <div>{note}</div>
-    </>
+    </div>
 
 const count$ = interval(1000).pipe(
     map(count => ({count}))
@@ -149,10 +155,10 @@ import {map} from 'rxjs/operators'
 import {connectRx} from 'react-connect-rx'
 
 const Counter = ({label, count}) =>
-    <>
+    <div>
         <div>{label}</div>
         <div>{count}</div>
-    </>
+    </div>
 
 const count$ = interval(1000).pipe(
     map(count => ({count}))
@@ -164,11 +170,9 @@ const ConnectedCounter = connectRx([count$])(props)(Counter)
 
 const App = () =>
     <ConnectedCounter />
-    // we have passed the props to connectRx function
-    // so we don't pass them here
+    // since we have passed the props to connectRx function
+    // we don't pass them here
 ```
-
-
 <hr>
 
 [see the working examples](https://jannosal.github.io/react-connect-rx/)
