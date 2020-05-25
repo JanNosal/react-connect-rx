@@ -79,10 +79,10 @@ import {map} from 'rxjs/operators'
 import {updateWithRx} from 'react-connect-rx'
 
 const Counter = ({label, count}) =>
-    <>
+    <div>
         <div>{label}</div>
         <div>{count}</div>
-    </>
+    </div>
 
 const count$ = interval(1000).pipe(
     map(count => ({count}))
