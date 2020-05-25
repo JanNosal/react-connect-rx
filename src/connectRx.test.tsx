@@ -10,7 +10,8 @@ configure({ adapter: new Adapter })
 
 describe('connectRx', () => {
   it('updates on emit with one prop updating on observable emit', () => {
-    const Counter = ({ count }: { count: number }) => <div id="count-wrapper">{count}</div>
+    const Display = ({ digit }: { digit: number }) => <div id="count-wrapper">{digit}</div>
+    const Counter = ({ count }: { count: number }) => <Display digit={count} /> 
 
     const countSubject$ = new Subject<number>()
 
@@ -29,7 +30,6 @@ describe('connectRx', () => {
     act(() => { countSubject$.next(777) })
 
     expect(wrapper.find("#count-wrapper").text()).toBe("777")
-
   })
 
   it('updates on emit with subgroup of props updating on observable emit', () => {
@@ -145,6 +145,5 @@ describe('connectRx', () => {
 
     expect(wrapper.find("#color-container").text()).toBe("orange")
     expect(wrapper.find("#text-container").text()).toBe("ready")
-
   })
 })
