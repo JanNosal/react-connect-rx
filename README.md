@@ -30,7 +30,10 @@ import {ComponentType} from "react"
 import {Observable} from "rxjs"
 
 type updateWithRx =
-<P extends Object>(Cmp: ComponentType<P>) => (obs: Array<Observable<Partial<P>>>) => (props: P) => JSX.Element
+  <P extends Object>(Cmp: ComponentType<P>)
+    => (obs: Array<Observable<Partial<P>>>)
+    => (props: P)
+    => JSX.Element
 ```
 
 #### description:
@@ -153,7 +156,10 @@ import {ComponentType, FunctionComponent} from "react"
 import {Observable} from "rxjs"
 
 type connectRx =
-<P extends Object>(obs: Observable<Partial<P>>[]) => (props: P) => (Cmp: ComponentType<P>) => FunctionComponent
+  <P extends Object>(obs: Observable<Partial<P>>[])
+    => (props: P)
+    => (Cmp: ComponentType<P>)
+    => FunctionComponent
 ```
 
 #### description:
@@ -183,7 +189,6 @@ const App = () =>
     // since we have passed the props to connectRx function
     // we don't pass them here
 ```
-<hr>
 
 [see the working examples](https://jannosal.github.io/react-connect-rx/)
 
