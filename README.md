@@ -141,12 +141,24 @@ const labelFourWithNote$ = timer(8000, 10000).pipe(
     mapTo({label: "sImPlE cOuNtEr", note: "Hello"})
 )
 
-const observables = [count$, labelOne$, labelTwo$, labelThreeWithNote$, labelFourWithNote$]
+const observables = [
+    count$,
+    labelOne$,
+    labelTwo$,
+    labelThreeWithNote$,
+    labelFourWithNote$
+]
 
 const ConnectedCounter = updateWithRx(Counter)(observables)
 
 export default function() {
-    return <ConnectedCounter label={"Simple counter"} count={0} note={"Hi"} />
+    return (
+        <ConnectedCounter
+            label={"Simple counter"}
+            count={0}
+            note={"Hi"}
+        />
+    )
 }
 ```
 ### connectRx
