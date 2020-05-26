@@ -2,7 +2,8 @@
 > Connect React with RxJS
 
 ## Simple functions to connect React component with RxJS observables
-This mini library provides two curried functions to connect React component with RxJS: `updateWithRx` and `connectRx`.
+This mini library provides two curried functions (or HOC if you wish) to connect React component with RxJS:
+`updateWithRx` and `connectRx`.
 These functions are basically the same, `connectRx` only wraps `updateWithRx` to change the order of the arguments,
 so it accepts the component in the last argument list.
 
@@ -23,15 +24,18 @@ yarn add react-connect-rx
 ## Usage
 
 ### updateWithRx
+#### type:
 ```tsx
-type updateWithRx<Props> =
-    (Component: ComponentType<Props>)
-        => (observables: Observable<Partial<Props>>[])
-            => (props: Props)
-                => ComponentType<Props>
+import {ComponentType} from "react"
+import {Observable} from "rxjs"
+
+<P extends Object>(Cmp: ComponentType<P>) => (obs: Array<Observable<Partial<P>>>) => (props: P) => JSX.Element
 ```
-Whole `updateWithRx` function works with `Props` object which is supposed to have the same type for every argument list. It is quite simple.
-Let's say we have a `Counter` component like this:
+
+#### description:
+Whole `updateWithRx` function works with props type `P` which describes the props of the component.
+
+It is quite simple. Let's say we have a `Counter` component like this:
 
 ```jsx
 const Counter = ({label, count}) =>
@@ -59,6 +63,8 @@ We only return object with keys matching the properties we want to update.
 Let's connect our `Counter` component and the `count$` observable.
 
 ```jsx
+import {updateWithRx} from 'react-connect-rx'
+
 const ConnectedCounter = updateWithRx(Counter)([count$])
 ```
 
@@ -140,13 +146,15 @@ export default function() {
 }
 ```
 ### connectRx
+#### type:
 ```tsx
-type connectRx<Props> =
-    => (observables: Observable<Partial<Props>>[])
-        => (props: Props)
-            => (Component: ComponentType<Props>)
-                => ComponentType<Props>
+import {ComponentType, FunctionComponent} from "react"
+import {Observable} from "rxjs"
+
+<P extends Object>(obs: Observable<Partial<P>>[]) => (props: P) => (Cmp: ComponentType<P>) => FunctionComponent
 ```
+
+#### description:
 As already mentioned there is no difference between `updateWithRx` and `connectRx` other than changed order of the arguments. We can use it like this:
 ```jsx
 import React from 'react'

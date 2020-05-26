@@ -1,27 +1,24 @@
 import * as React from 'react'
-import { ComponentType, useEffect, useState } from "react"
-import { Observable } from "rxjs"
+import {ComponentType, useEffect, useState} from "react"
+import {Observable} from "rxjs"
 
-export default function updateWithRx<T>(Component: ComponentType<T>) {
+export default <P extends Object>(Cmp: ComponentType<P>) => (obs: Array<Observable<Partial<P>>>) => (props: P) => {
 
-    return (observables: Array<Observable<Partial<T>>>) => (props: T) => {
+  const [properties, setProperties] = useState<P>(props)
 
-        const [properties, setProperties] = useState<T>(props)
-
-        useEffect(
-            () => {
-                const subscriptions = observables.map(
-                    observable$ => observable$.subscribe(
-                        newProperties => setProperties((oldProperties: T) => ({ ...oldProperties, ...newProperties }))
-                    )
-                )
-
-                return () => {
-                    subscriptions.map(subscription => subscription.unsubscribe())
-                }
-            }, []
+  useEffect(
+    () => {
+      const subscriptions = obs.map(
+        observable$ => observable$.subscribe(
+          newProperties => setProperties((oldProperties: P) => ({...oldProperties, ...newProperties}))
         )
+      )
 
-        return <Component {...properties} />
-    }
+      return () => {
+        subscriptions.map(subscription => subscription.unsubscribe())
+      }
+    }, []
+  )
+
+  return <Cmp {...properties} />
 }
