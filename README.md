@@ -63,7 +63,7 @@ We only return object with keys matching the properties we want to update.
 Let's connect our `Counter` component and the `count$` observable.
 
 ```jsx
-import {updateWithRx} from 'react-connect-rx'
+import {updateWithRx} from "react-connect-rx"
 
 const ConnectedCounter = updateWithRx(Counter)([count$])
 ```
@@ -79,10 +79,10 @@ const App = () =>
 
 Full code:
 ```jsx
-import React from 'react'
-import {interval} from 'rxjs'
-import {map} from 'rxjs/operators'
-import {updateWithRx} from 'react-connect-rx'
+import React from "react"
+import {interval} from "rxjs"
+import {map} from "rxjs/operators"
+import {updateWithRx} from "react-connect-rx"
 
 const Counter = ({label, count}) =>
     <div>
@@ -105,10 +105,10 @@ you can pass any number of observables, which can update the same subgroup of pr
 or have an interception.
 
 ```jsx
-import React from 'react'
-import {interval, timer} from 'rxjs'
-import {map, mapTo} from 'rxjs/operators'
-import {updateWithRx} from 'react-connect-rx'
+import React from "react"
+import {interval, timer} from "rxjs"
+import {map, mapTo} from "rxjs/operators"
+import {updateWithRx} from "react-connect-rx"
 
 const Counter = ({label, count, note}) =>
     <div>
@@ -157,10 +157,10 @@ import {Observable} from "rxjs"
 #### description:
 As already mentioned there is no difference between `updateWithRx` and `connectRx` other than changed order of the arguments. We can use it like this:
 ```jsx
-import React from 'react'
-import {interval} from 'rxjs'
-import {map} from 'rxjs/operators'
-import {connectRx} from 'react-connect-rx'
+import React from "react"
+import {interval} from "rxjs"
+import {map} from "rxjs/operators"
+import {connectRx} from "react-connect-rx"
 
 const Counter = ({label, count}) =>
     <div>
