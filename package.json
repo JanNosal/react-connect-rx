@@ -17,7 +17,7 @@
     "tsc": "tsc",
     "build": "tsc",
     "deploy": "storybook-to-ghpages",
-    "prepublish": "run-s build"
+    "prepublish": "pnpm run build"
   },
   "repository": {
     "type": "git",
