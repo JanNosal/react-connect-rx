@@ -83,7 +83,7 @@ const testComponent = () =>
 
 <Canvas>
   <Story name="StopWatch">
-    <UpdatingStopWatch count={0} start={() => start1$.next()} stop={() => stop1$.next()} reset={()=> reset1$.next()} />
+    <ConnectedStopWatch />
    </Story>
 </Canvas>
 

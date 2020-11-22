@@ -1,7 +1,7 @@
 import React from 'react'
 import {interval, timer} from 'rxjs'
 import {map, mapTo} from 'rxjs/operators'
-import {updateWithRx} from 'react-connect-rx'
+import {connectRx, updateWithRx} from 'react-connect-rx'
 
 interface CounterProps {
     label: string,
@@ -38,8 +38,17 @@ const labelFourWithNote$ = timer(8000, 10000).pipe(
 
 const observables = [count$, labelOne$, labelTwo$, labelThreeWithNote$, labelFourWithNote$]
 
-const ConnectedCounter = updateWithRx(Counter)(observables)
+const UpdatingCounter = updateWithRx(Counter)(observables)
+const ConnectedCounter = connectRx<CounterProps>(observables)({label: "Simple counter", count: 0, note: "Hi"})(Counter)
 
 export default function SimpleCounter() {
-    return <ConnectedCounter label={"Simple counter"} count={0} note={"Hi"} />
+    return  (
+        <>
+            <h3>UpdatingCounter</h3>
+            <UpdatingCounter label={"Simple counter"} count={0} note={"Hi"} />
+            <hr />
+            <h3>ConnectedCounter</h3>
+            <ConnectedCounter />
+        </>
+    )
 }
