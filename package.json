@@ -1,6 +1,6 @@
 {
   "name": "react-connect-rx",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "keywords": [
     "React",
     "RxJS"
@@ -17,7 +17,7 @@
     "tsc": "tsc",
     "build": "tsc",
     "deploy": "storybook-to-ghpages",
-    "prepublish": "pnpm run build"
+    "prepare": "pnpm run build"
   },
   "repository": {
     "type": "git",
