@@ -1,0 +1,150 @@
+import { Meta, Story, Canvas, Code } from '@storybook/addon-docs/blocks';
+import {UpdatingCounter} from './components/SimpleCounter'
+import {UpdatingStopWatch, start1$, stop1$, reset1$} from './components/StopWatch'
+
+<Meta title="Examples/updateWithRx" />
+
+# updateWithRx
+
+## Simple Counter Example
+
+<Canvas>
+  <Story name="Counter">
+    <UpdatingCounter label={'Simple Counter'} count={0} note={'Hi'} />
+   </Story>
+</Canvas>
+
+### declaration
+```tsx
+import React from 'react'
+import {interval, timer} from 'rxjs'
+import {map, mapTo} from 'rxjs/operators'
+import {updateWithRx} from 'react-connect-rx'
+
+interface CounterProps {
+    label: string,
+    count: number,
+    note: string
+}
+
+const Counter = ({label, count, note}: CounterProps) =>
+    <>
+        <h4>{label}</h4>
+        <div>{count}</div>
+        <div>{note}</div>
+    </>
+
+const count$ = interval(1000).pipe(
+    map(count => ({count}))
+)
+
+const labelOne$ = timer(2000, 10000).pipe(
+    mapTo({label: "SIMPLE COUNTER"})
+)
+
+const labelTwo$ = timer(4000, 10000).pipe(
+    mapTo({label: "Simple counter"})
+)
+
+const labelThreeWithNote$ = timer(6000, 10000).pipe(
+    mapTo({label: "SiMpLe CoUnTeR", note: "Hey"})
+)
+
+const labelFourWithNote$ = timer(8000, 10000).pipe(
+    mapTo({label: "sImPlE cOuNtEr", note: "Hello"})
+)
+
+const observables = [count$, labelOne$, labelTwo$, labelThreeWithNote$, labelFourWithNote$]
+
+// In the second arguments list, which accepts the array of observables,
+// you can pass any number of observables, which can update the same subgroup of props a different one,
+// or have an interception.
+const UpdatingCounter = updateWithRx(Counter)(observables)
+
+export default UpdatingCounter;
+```
+### usage
+```tsx
+import UpdatingCounter from './the place where you have your declaration'
+
+const testComponent = () =>
+    <UpdatingCounter label={'Simple Counter'} count={0} note={'Hi'} />
+
+```
+
+## StopWatch
+
+<Canvas>
+  <Story name="StopWatch">
+    <UpdatingStopWatch count={0} start={() => start1$.next()} stop={() => stop1$.next()} reset={()=> reset1$.next()} />
+   </Story>
+</Canvas>
+
+### declaration
+(adapted from https://codepen.io/belfz/pen/WwrBej)
+```tsx
+const createCounterStream = (start$: Observable<any>, stop$: Observable<any>, reset$: Observable<any>) =>
+  merge(
+    start$.pipe(
+      switchMap(
+        () => interval(1000).pipe(
+          takeUntil(stop$),
+          mapTo(1)
+        ),
+      )
+    ),
+    reset$.pipe(
+      mapTo(0)
+    )
+  ).pipe(
+    scan((acc, n) => n === 0 ? 0 : acc + n),
+    map(count => ({ count }))
+  )
+
+interface StopWatchProps {
+  count: number,
+  start: (e?: React.SyntheticEvent) => void,
+  stop: (e?: React.SyntheticEvent) => void,
+  reset: (e?: React.SyntheticEvent) => void,
+}
+
+function StopWatch({ count, start, stop, reset }: StopWatchProps) {
+  return (
+    <>
+      <button onClick={start}>
+        Start
+      </button>
+      <button onClick={stop}>
+        stop
+      </button>
+      <button onClick={reset}>
+        reset
+      </button>
+      <div className="container">
+        <div className="wheel">
+          <div id="pointer" style={{ "transform": `rotate(${(count % 60) * 6}deg)` }}>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+const start1$ = new Subject()
+const stop1$ = new Subject()
+const reset1$ = new Subject()
+
+const count1$ = createCounterStream(start1$, stop1$, reset1$)
+
+const UpdatingStopWatch = updateWithRx(StopWatch)([count1$])
+
+export {UpdatingStopWatch, start1$, stop1$, reset1$}
+```
+
+### usage
+```tsx
+import {UpdatingStopWatch, start1$, stop1$, reset1$} './the place where you have your declaration'
+
+const testComponent = () =>
+    <UpdatingStopWatch count={0} start={() => start1$.next()} stop={() => stop1$.next()} reset={()=> reset1$.next()} />
+```
