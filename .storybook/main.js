@@ -1,5 +1,8 @@
 module.exports = {
   "stories": [
+    "../stories/Introduction.stories.mdx",
+    "../stories/UpdateWithRx.stories.mdx",
+    "../stories/ConnectRx.stories.mdx",
     "../stories/**/*.stories.mdx",
     "../stories/**/*.stories.@(js|jsx|ts|tsx)"
   ],
