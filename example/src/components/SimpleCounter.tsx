@@ -40,6 +40,6 @@ const observables = [count$, labelOne$, labelTwo$, labelThreeWithNote$, labelFou
 
 const ConnectedCounter = updateWithRx(Counter)(observables)
 
-export default function() {
+export default function SimpleCounter() {
     return <ConnectedCounter label={"Simple counter"} count={0} note={"Hi"} />
 }

@@ -1,5 +1,4 @@
-import React from 'react'
-import 'react-connect-rx/dist/index.css'
+import React from 'react';
 import StopWatchExamples from "./components/StopWatch";
 import SimleCounter from "./components/SimpleCounter"
 

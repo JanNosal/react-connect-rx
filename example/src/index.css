@@ -1,43 +1,13 @@
 body {
   margin: 0;
-  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
+    monospace;
 }
-
-* {
-  box-sizing: border-box;
-}
-
-/*
- taken from https://codepen.io/belfz/pen/WwrBej
- */
-.wheel {
-  background-image: url("http://img.clipartall.com/clock-clip-art-clock-clipart-425_425.jpg");
-  background-size: cover;
-  width: 200px;
-  height: 200px;
-  border-radius: 100px;
-  position: relative;
-}
-
-#pointer {
-  width: 4px;
-  height: 90px;
-  background-color: black;
-  position: absolute;
-  left: 98px;
-  top: 10px;
-  transform-origin: bottom;
-}
-
-
-

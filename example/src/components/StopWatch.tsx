@@ -1,7 +1,8 @@
 import * as React from "react"
 import {Subject, merge, interval, Observable} from "rxjs"
 import {map, mapTo, scan, switchMap, takeUntil} from "rxjs/operators"
-import {updateWithRx, connectRx} from 'react-connect-rx'
+import {updateWithRx, connectRx} from "react-connect-rx"
+import "./stopWatch.css"
 
 /**
  * adapted from https://codepen.io/belfz/pen/WwrBej
@@ -54,9 +55,9 @@ function StopWatch({count, start, stop, reset}: StopWatchProps) {
   )
 }
 
-const start1$ = new Subject()
-const stop1$ = new Subject()
-const reset1$ = new Subject()
+export const start1$ = new Subject()
+export const stop1$ = new Subject()
+export const reset1$ = new Subject()
 
 const count1$ = createCounterStream(start1$, stop1$, reset1$)
 
@@ -74,7 +75,7 @@ const ConnectedStopWatch =
   ({count: 0, start: () => start2$.next(), stop: () => stop2$.next(), reset: () => reset2$.next()})
   (StopWatch)
 
-export default function () {
+export default function StopWatchPage() {
   return (
     <>
       <div>
@@ -88,7 +89,7 @@ export default function () {
       </div>
       <div>
         <h4>Stop watch with fn connectRx</h4>
-        <ConnectedStopWatch/>
+        <ConnectedStopWatch />
       </div>
     </>
   )
