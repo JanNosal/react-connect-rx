@@ -31,7 +31,10 @@ import React, {ComponentType, ComponentClass} from 'react'
 import {Observable} from "rxjs"
 
 export type UpdateWithRx =
-<P extends Object>(Cmp: ComponentType<P>) => (obs: Array<Observable<Partial<P>>>) => ComponentClass<P, P>
+<P extends Object>
+  (Cmp: ComponentType<P>) =>
+    (obs: Array<Observable<Partial<P>>>)
+      => ComponentClass<P, P>
 ```
 
 #### usage
@@ -65,7 +68,11 @@ import React, {ComponentType, FunctionComponent} from "react"
 import {Observable} from "rxjs"
 
 export type ConnectRx =
-<P extends Object>(obs: Observable<Partial<P>>[]) => (props: P) => (Cmp: ComponentType<P>) => FunctionComponent
+<P extends Object>
+  (obs: Observable<Partial<P>>[]) =>
+    (props: P) =>
+      (Cmp: ComponentType<P>) =>
+        FunctionComponent
 ```
 
 #### usage

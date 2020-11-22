@@ -2,7 +2,11 @@ import React, {ComponentType, ComponentClass, useEffect, useState} from "react"
 import {Observable, Subscription} from "rxjs"
 
 
-export type UpdateWithRx = <P extends Object>(Cmp: ComponentType<P>) => (obs: Array<Observable<Partial<P>>>) => ComponentClass<P, P>
+export type UpdateWithRx =
+<P extends Object>
+  (Cmp: ComponentType<P>) =>
+    (obs: Array<Observable<Partial<P>>>) =>
+      ComponentClass<P, P>
 
 const updateWithRx: UpdateWithRx = <P extends Object>(Cmp: ComponentType<P>) => (obs: Array<Observable<Partial<P>>>) => class extends React.Component<P, P> {
 
