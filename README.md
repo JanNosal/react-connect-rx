@@ -4,7 +4,9 @@
 [docs and examples](https://jannosal.github.io/react-connect-rx/)
 
 This mini library provides two curried functions (or HOC if you wish) to connect React component with RxJS:
-`updateWithRx` and `connectRx`.
+`updateWithRx` and `connectRx`. Their main purpose is to subsribe to observables when component did mount,
+update the properties of the contained component when attached observables emit value, and unsubsribe from observables
+when component will unmount.
 These functions are basically the same, `connectRx` only wraps `updateWithRx` to change the order of the argument lists,
 so it accepts the component in the last argument list.
 
@@ -93,6 +95,11 @@ const props = {
     count: 0
 }
 
+// If you are using typescript, you might need to annotate by the type of props.
+// The whole type signature is based on the type of the props and
+// since props are comming in second argument list,
+// compiler is unable to infer the type fot the first arguments list.
+// connectRx<{count: number}>(observables)(props)(Counter)
 const ConnectedCounter = connectRx<CounterProps>(observables)(props)(Counter)
 
 ReactDOM.render(
