@@ -104,8 +104,8 @@ const props = {
 
 // If you are using typescript, you might need to annotate by the type of props.
 // The whole type signature is based on the type of the props and
-// since props are comming in second argument list,
-// compiler is unable to infer the type fot the first arguments list.
+// since props are comming in the second argument list,
+// compiler is unable to infer the type for the first arguments list.
 // connectRx<{count: number}>(observables)(props)(Counter)
 const ConnectedCounter = connectRx(observables)(props)(Counter)
 
