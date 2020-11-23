@@ -30,7 +30,7 @@ yarn add react-connect-rx
 #### type signature
 ```ts
 import React, {ComponentType, ComponentClass} from 'react'
-import {Observable} from "rxjs"
+import {Observable} from 'rxjs'
 
 export type UpdateWithRx =
 <P extends Object>
@@ -66,8 +66,8 @@ ReactDOM.render(
 
 #### type signature
 ```ts
-import React, {ComponentType, FunctionComponent} from "react"
-import {Observable} from "rxjs"
+import React, {ComponentType, FunctionComponent} from 'react'
+import {Observable} from 'rxjs'
 
 export type ConnectRx =
 <P extends Object>
