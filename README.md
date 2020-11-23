@@ -111,8 +111,9 @@ ReactDOM.render(
 
 ## Notes
 In the arguments list, which accepts the array of observables,
-you can pass any number of observables, which can update the same subgroup of props a different one,
-or have an interception. See more in the [docs and examples](https://jannosal.github.io/react-connect-rx/).
+you can pass any number of observables.
+These can update the same subgroup of props, a different one,
+or an interception. See more in the [docs and examples](https://jannosal.github.io/react-connect-rx/).
 
 ## License
 
