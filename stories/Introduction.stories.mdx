@@ -11,8 +11,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
 > Connect React with RxJS
 
 This mini library provides two curried functions (or HOC if you wish) to connect React component with RxJS:
-`updateWithRx` and `connectRx`. Their main purpose is to subsribe to observables when component did mount,
-update the properties of the contained component when attached observables emit value, and unsubsribe from observables
+`updateWithRx` and `connectRx`. Their main purpose is to subscribe to observables when component did mount,
+update the properties of the contained component when attached observables emit new value, and unsubscribe
 when component will unmount.
 These functions are basically the same, `connectRx` only wraps `updateWithRx` to change the order of the argument lists,
 so it accepts the component in the last argument list.
