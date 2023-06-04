@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Subject, merge, interval, Observable } from "rxjs"
 import { map, mapTo, scan, switchMap, takeUntil } from "rxjs/operators"
-import { updateWithRx, connectRx } from "../../src"
+import { updateWithRx, connectRx } from "../.."
 import "./stopWatch.css"
 
 /**
@@ -71,7 +71,7 @@ const count2$ = createCounterStream(start2$, stop2$, reset2$)
 const ConnectedStopWatch =
   connectRx<StopWatchProps>
     ([count2$])
-    ({ count: 0, start: () => start2$.next(), stop: () => stop2$.next(), reset: () => reset2$.next() })
+    ({ count: 0, start: () => start2$.next(1), stop: () => stop2$.next(1), reset: () => reset2$.next(1) })
     (StopWatch)
 
 export { UpdatingStopWatch, start1$, stop1$, reset1$, ConnectedStopWatch }

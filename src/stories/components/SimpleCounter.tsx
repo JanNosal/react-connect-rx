@@ -1,7 +1,7 @@
 import React from 'react'
 import {interval, timer} from 'rxjs'
 import {map, mapTo} from 'rxjs/operators'
-import {updateWithRx, connectRx} from '../../src/'
+import {updateWithRx, connectRx} from '../..'
 
 interface CounterProps {
     label: string,
