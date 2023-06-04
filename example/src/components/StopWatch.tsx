@@ -72,7 +72,7 @@ const count2$ = createCounterStream(start2$, stop2$, reset2$)
 const ConnectedStopWatch =
   connectRx<StopWatchProps>
   ([count2$])
-  ({count: 0, start: () => start2$.next(), stop: () => stop2$.next(), reset: () => reset2$.next()})
+  ({count: 0, start: () => start2$.next(1), stop: () => stop2$.next(1), reset: () => reset2$.next(1)})
   (StopWatch)
 
 export default function StopWatchPage() {
@@ -82,9 +82,9 @@ export default function StopWatchPage() {
         <h4>Stop watch with fn updateRx</h4>
         <UpdatingStopWatch
           count={0}
-          start={() => start1$.next()}
-          stop={() => stop1$.next()}
-          reset={() => reset1$.next()}
+          start={() => start1$.next(1)}
+          stop={() => stop1$.next(1)}
+          reset={() => reset1$.next(1)}
         />
       </div>
       <div>
