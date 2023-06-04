@@ -1,11 +1,15 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from "react"
-import { act } from "react-dom/test-utils"
 import { render } from "@testing-library/react"
-import { updateWithRx } from './index'
+import { act } from "react-dom/test-utils"
+import { connectRx } from '../../index'
 import { Subject } from "rxjs"
 import { map, startWith } from "rxjs/operators"
 
-describe("updateWithRx", () => {
+describe("connectRx", () => {
   it("renders withough crashing", () => {
     const Display = ({ digit }: { digit: number }) => <div data-testid="count-wrapper">{digit}</div>
     const Counter = ({ count }: { count: number }) => <Display digit={count} />
@@ -14,22 +18,22 @@ describe("updateWithRx", () => {
 
     const count$ = countSubject$.pipe(map(count => ({ count })))
 
-    const UpdatingCounter = updateWithRx(Counter)([count$])
+    const ConnectedCounter = connectRx([count$])({ count: 0 })(Counter)
 
-    render(<UpdatingCounter count={0} />)
+    render(<ConnectedCounter />)
   })
 
   it('updates on emit with one prop updating on observable emit', () => {
     const Display = ({ digit }: { digit: number }) => <div data-testid="count-wrapper">{digit}</div>
-    const Counter = ({ count }: { count: number }) => <Display digit={count} />
+    const Counter = ({ count }: { count: number }) => <Display digit={count} /> 
 
     const countSubject$ = new Subject<number>()
 
     const count$ = countSubject$.pipe(map(count => ({ count })))
 
-    const UpdatingCounter = updateWithRx(Counter)([count$])
+    const ConnectedCounter = connectRx([count$])({count: 0})(Counter)
 
-    const wrapper = render(<UpdatingCounter count={0} />)
+    const wrapper = render(<ConnectedCounter />)
 
     expect(wrapper.getByTestId("count-wrapper").textContent == "0")
 
@@ -68,9 +72,12 @@ describe("updateWithRx", () => {
       map(middleName => ({ middleName }))
     )
 
-    const UpdatedingPersonalDetails = updateWithRx(PersonalDetails)([firstName$, middleName$])
+    const UpdatedingPersonalDetails = connectRx<PersonalDetailsProps>
+    ([firstName$, middleName$])
+    ({firstName: "James", middleName: "Herbert", lastName: "Bond"})
+    (PersonalDetails)
 
-    const wrapper = render(<UpdatedingPersonalDetails firstName={"James"} middleName={"Herbert"} lastName={"Bond"} />)
+    const wrapper = render(<UpdatedingPersonalDetails />)
 
     expect(wrapper.getByTestId("firstName").textContent == "James")
     expect(wrapper.getByTestId("middleName").textContent == "Herbert")
@@ -98,7 +105,7 @@ describe("updateWithRx", () => {
 
     type Color = "red" | "orange" | "green"
 
-    const TrafficLights = ({ color }: { color: Color }) =>
+    const TrafficLights = ({ color }: { color: Color}) =>
       <>
         <div data-testid="color-container">{color}</div>
         <div data-testid="text-container">{color === "green" ? "go" : color === "orange" ? "ready" : "wait"}</div>
@@ -108,13 +115,16 @@ describe("updateWithRx", () => {
     const switchSubject2 = new Subject<Color>()
     const switchSubject3 = new Subject<Color>()
 
-    const switch1$ = switchSubject1.pipe(map(color => ({ color })), startWith({ color: "green" as Color }))
-    const switch2$ = switchSubject2.pipe(map(color => ({ color })))
-    const switch3$ = switchSubject3.pipe(map(color => ({ color })))
+    const switch1$ = switchSubject1.pipe(map(color => ({color})), startWith({color: "green" as Color}))
+    const switch2$ = switchSubject2.pipe(map(color => ({color})))
+    const switch3$ = switchSubject3.pipe(map(color => ({color})))
 
-    const ConnectedTrafficLights = updateWithRx(TrafficLights)([switch1$, switch2$, switch3$])
+    const ConnectedTrafficLights = connectRx<{color: Color}>
+    ([switch1$, switch2$, switch3$])
+    ({color: "red"})
+    (TrafficLights)
 
-    const wrapper = render(<ConnectedTrafficLights color={"red"} />)
+    const wrapper = render(<ConnectedTrafficLights />)
 
     expect(wrapper.getByTestId("color-container").textContent == "green")
     expect(wrapper.getByTestId("text-container").textContent == "go")

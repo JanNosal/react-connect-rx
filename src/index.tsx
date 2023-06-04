@@ -1,11 +1,14 @@
-import updateWithRx from "./updateWithRx"
-import connectRx from "./connectRx"
-import type {UpdateWithRx} from "./updateWithRx"
-import type {ConnectRx} from "./connectRx"
+import updateWithRx from "./hoc/updateWithRx"
+import connectRx from "./hoc/connectRx"
+import type {UpdateWithRx} from "./hoc/updateWithRx"
+import type {ConnectRx} from "./hoc/connectRx"
+
+import useSubscribe from "./hooks/useSubscribe"
 
 export {
   updateWithRx,
-  connectRx
+  connectRx,
+  useSubscribe
 }
 
 export type{
