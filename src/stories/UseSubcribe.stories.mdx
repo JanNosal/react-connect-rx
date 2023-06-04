@@ -1,0 +1,60 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import {ConnectedCounter} from './components/SimpleCounter'
+import {ConnectedStopWatch} from './components/StopWatch'
+
+<Meta
+  title="Examples/useSubscribe"
+  parameters={{
+    viewMode: 'docs',
+  }}
+/>
+
+# connectRx
+
+## Simple Counter Example
+
+<Canvas>
+  <Story name="Counter">
+    <ConnectedCounter />
+   </Story>
+</Canvas>
+
+### declaration
+```tsx
+import React from 'react'
+import { interval } from 'rxjs'
+import { useSubscribe } from '../..'
+
+interface CounterProps {
+    label: string,
+    note: string
+}
+
+const count$ = interval(1000)
+
+
+const Counter = ({ label, note }: CounterProps) => {
+
+    const count = useSubscribe(0)(count$)
+
+    return (
+        <>
+            <h4>{label}</h4>
+            <div>{count}</div>
+            <div>{note}</div>
+        </>
+    )
+}
+
+export default Counter;
+```
+### usage
+```tsx
+import Counter from './the place where you have your declaration'
+
+const testComponent = () =>
+    // since we have passed the props to connectRx function
+    // we don't pass them here
+    <Counter label={"I am counter"} note = {"Hello"} />
+
+```
