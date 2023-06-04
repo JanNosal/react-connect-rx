@@ -10,12 +10,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 # react-connect-rx
 > Connect React with RxJS
 
-This mini library provides two curried functions (or HOC if you wish) to connect React component with RxJS:
-`updateWithRx` and `connectRx`. Their main purpose is to subscribe to observables when component did mount,
-update the properties of the contained component when attached observables emit new value, and unsubscribe
-when component will unmount.
-These functions are basically the same, `connectRx` only wraps `updateWithRx` to change the order of the argument lists,
-so it accepts the component in the last argument list.
+This simplistic library provides a few higher order components and hooks to connect React component with RxJS.
 
 [![NPM](https://img.shields.io/npm/v/react-connect-rx.svg)](https://www.npmjs.com/package/react-connect-rx) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -31,6 +26,33 @@ yarn add react-connect-rx
 ```
 
 ## API
+
+> ### useSubscribe
+
+#### type signature
+It takes initial state in the first argmment list,
+observalbe to subcribe in the second one
+and return current state produced by the observable.
+
+```ts
+import {Observable} from 'rxjs'
+
+export type UseSubscribe =
+  <T>(init: T) => (observable: Observable<T>) => T
+```
+
+#### usage
+```ts
+import {useSubscribe} from 'react-connect-rx'
+import {Observable} from 'rxjs'
+
+const count$ = interval(1000)
+
+const Conter = () => {
+    const count = useSubscribe(0)(count$)
+    return <div>{count}</div>
+}
+```
 
 > ### updateWithRx
 

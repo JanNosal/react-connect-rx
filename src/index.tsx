@@ -1,9 +1,9 @@
+import useSubscribe from "./hooks/useSubscribe"
 import updateWithRx from "./hoc/updateWithRx"
 import connectRx from "./hoc/connectRx"
+import type {UseSubscribe} from "./hooks/useSubscribe"
 import type {UpdateWithRx} from "./hoc/updateWithRx"
 import type {ConnectRx} from "./hoc/connectRx"
-
-import useSubscribe from "./hooks/useSubscribe"
 
 export {
   updateWithRx,
@@ -12,6 +12,7 @@ export {
 }
 
 export type{
+  UseSubscribe,
   UpdateWithRx,
   ConnectRx
 }
